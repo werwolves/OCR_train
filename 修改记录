@@ -1,0 +1,31 @@
+G:\模型源码学习\ocr相关模型\ocr_train_english\util\label_utils.py       UNDEF_CHAR = u' ' ---> UNDEF_CHAR = u'卍'
+G:\模型源码学习\ocr相关模型\ocr_train_english\models\tf\ocr\feeder.py   ImageRndUtils.rnd_pad(im, (16, 8, 16, 8))
+
+models/tf/ocr/__init__.py  class TFCtcTrainModel -> init_model        可以实时查看 lr 的大小，并且在该处设置 初始学习率
+models/tf/__init__.py      class TFTrainModel -> get_train_callbacks  修改模型 lr 变化的策略
+                                              -> on_epoch_end         修改模型只能保存 10 轮的bug(原先的策略是10轮后的模型
+                                                                      将以10的余数的方式覆盖之前的模型)
+
+util/data_reader.py       FolderBatchReader -> _next_data_loader      打印该句话时 “load item count” ===> 现在会明确测试集与训练集
+
+models/tf/__init__.py     TFTrainModel ->  do_run()                   训练时会记录每一轮的 'loss', 'acc', 'lr', 'val_loss', 'val_acc', 'val_lr'
+                                                                      并且加上了 plot_history() 对上面的测试做绘制
+models/tf/ocr/ocr_dense_net.py  dense_net_to_seq() --->
+                                         _dropout_rate = 0.2          可以尝试改善识别网络的过拟合问题
+                                         _weight_decay = 1e-4
+conf/conf.d/tf/full_strs/full_strs.json   中 加入字典    "multi_process" : "True"     启用多进程读取数据
+
+
+models/tf/__init__.py      TFTrainModel/do_run() --->  可以 呈现出 训练的过程记录
+
+在 data/*/val-**           建立验证集
+
+models/tf/ocr/ocr_dense_net.py    去掉 build_model_outputs() 函数的dropout 代码   - 这段代码没有运行，是否修改影响不大
+
+models/tf/ocr/__init__.py        通过 build_model() 中  if eval(self.is_rnn): 决定是否使用LSTM
+
+
+
+
+
+
