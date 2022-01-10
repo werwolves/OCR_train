@@ -13,14 +13,14 @@ python train.py --data_root=./data --config=tf/fr/fr-num
 #### train:
 
 ```shell
-python train.py --data_root=./data --config=fluid/idcard/full_12740
+python train.py --data_root=./data
 ```
 
 
 #### test:
 
 ```shell
-python train.py --data_root=./data --config=fluid/idcard/full_12740 --mode=test 
+python train.py --data_root=./data
 ```
 
 
