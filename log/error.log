@@ -1,0 +1,40 @@
+2022-01-10 14:19:07-WARNING:  
+Bad key text.latex.unicode in file E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle, line 112 ('text.latex.unicode : False # use "ucs" and "inputenc" LaTeX packages for handling')
+You probably need to get an updated matplotlibrc file from
+https://github.com/matplotlib/matplotlib/blob/v3.3.4/matplotlibrc.template
+or from the matplotlib source distribution
+2022-01-10 14:19:07-WARNING:  
+Bad key savefig.frameon in file E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle, line 423 ('savefig.frameon : True')
+You probably need to get an updated matplotlibrc file from
+https://github.com/matplotlib/matplotlib/blob/v3.3.4/matplotlibrc.template
+or from the matplotlib source distribution
+2022-01-10 14:19:07-WARNING:  
+Bad key pgf.debug in file E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle, line 444 ('pgf.debug           : False')
+You probably need to get an updated matplotlibrc file from
+https://github.com/matplotlib/matplotlib/blob/v3.3.4/matplotlibrc.template
+or from the matplotlib source distribution
+2022-01-10 14:19:07-WARNING:  
+Bad key verbose.level in file E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle, line 475 ('verbose.level  : silent      # one of silent, helpful, debug, debug-annoying')
+You probably need to get an updated matplotlibrc file from
+https://github.com/matplotlib/matplotlib/blob/v3.3.4/matplotlibrc.template
+or from the matplotlib source distribution
+2022-01-10 14:19:07-WARNING:  
+Bad key verbose.fileo in file E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle, line 476 ('verbose.fileo  : sys.stdout  # a log filename, sys.stdout or sys.stderr')
+You probably need to get an updated matplotlibrc file from
+https://github.com/matplotlib/matplotlib/blob/v3.3.4/matplotlibrc.template
+or from the matplotlib source distribution
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The text.latex.preview rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The mathtext.fallback_to_cm rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: Support for setting the 'mathtext.fallback_to_cm' rcParam is deprecated since 3.3 and will be removed two minor releases later; use 'mathtext.fallback : 'cm' instead.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The validate_bool_maybe_none function was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The savefig.jpeg_quality rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The keymap.all_axes rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The animation.avconv_path rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.
+2022-01-10 14:19:07-WARNING:  In E:\Anaconda3\envs\mypython36\lib\site-packages\matplotlib\mpl-data\stylelib\_classic_test.mplstyle: 
+The animation.avconv_args rcparam was deprecated in Matplotlib 3.3 and will be removed two minor releases later.

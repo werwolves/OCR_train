@@ -1,0 +1,27 @@
+{
+  "model_name": "full-strs",
+  "model_def_type": "tf.ocr_dense_net",
+  "define_args": {
+    "charset_file": "./conf/charset/full_strs/full_7655.txt",
+    "input_height":48,
+    "input_width":800,
+    "input_channels": 1
+  },
+  "train_args": {
+    "model_path": "${out_root}/tf/full_strs",
+    "input_path": "${data_root}/full_strs",
+	"input_format": "folder-image",
+    "multi_process" : "False",
+    "max_text_len":100,
+	"rnd_proc_img" : "True",
+    "input_len_div" : 8,
+    "batch_size": 2,
+    "epochs": 3,
+    "steps_per_epoch": 5,
+    "gpu_memory" : 0.8,
+    "filter_test_name": "none*",
+	"filter_train_name": "*/train*"	
+  }
+
+
+}
