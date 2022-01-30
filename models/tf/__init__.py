@@ -229,7 +229,7 @@ class TFTrainModel(BaseTrainModel):
         train_result = self.train_model.fit_generator(gen_train,
                                        steps_per_epoch=self.steps_per_epoch,
                                        validation_data=gen_val,
-                                       validation_steps=self.steps_per_epoch,
+                                       validation_steps=self.steps_per_epoch//2,
                                        epochs=self.epochs,
                                        callbacks=self.get_train_callbacks(),
                                        shuffle = True)

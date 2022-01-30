@@ -20,7 +20,7 @@ class TFOcrModelDef(TFModelDef, OcrModelDef):
     def __init__(self, name, **kwargs):
         super().__init__(name, **kwargs)
         self.init_ocr_model(**kwargs)
-        self.rnn_size = self.args.get('rnn_size', 200)
+        # self.rnn_size = self.args.get('rnn_size', 200)
         self.is_rnn  = self.args.get('is_rnn', "False")
 
     def decode_tensor_to_labels(self, results):
@@ -226,6 +226,7 @@ class TFCtcTrainModel(TFTrainModel):
             return lr
 
         optimizer = tf.keras.optimizers.Adam(lr=0.001)
+        optimizer = tf.keras.optimizers.SGD()
         lr_metric = get_lr_metric(optimizer)
         self.train_model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=optimizer, metrics=['accuracy',lr_metric])
         ########################

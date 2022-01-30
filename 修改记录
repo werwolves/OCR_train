@@ -23,6 +23,11 @@ models/tf/__init__.py      TFTrainModel/do_run() --->  可以 呈现出 训练�
 models/tf/ocr/ocr_dense_net.py    去掉 build_model_outputs() 函数的dropout 代码   - 这段代码没有运行，是否修改影响不大
 
 models/tf/ocr/__init__.py        通过 build_model() 中  if eval(self.is_rnn): 决定是否使用LSTM
+models/tf/__init__.py            通过 def do_run(self) 中 self.train_model.fit_generator(....) 可以调节 验证集上的步长。
+
+models/tf/ocr/__init__.py        def init_model(self)  中 self.train_model.compile() 可以 优化器 和 学习率等参数
+
+
 
 
 

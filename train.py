@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from models.factory import ModelFactory
 from util import BaseApp
-
+# --config=tf/full_strs/full_strs --use_gpu=True --data_root=./data
 # --config=tf/account/account-num --use_gpu=True --data_root=E:/PycharmProjects/work2/ai-training/data   训练官方的数字识别
 # --config=tf/zch/zch-num --use_gpu=True --data_root=E:/PycharmProjects/work2/ai-training/data    训练注册号的识别
 # python -u train.py --config=tf/full_strs/full_strs --use_gpu=True --data_root=/usr/hsc_projects/test_rec/ai-training/data_no_blank >train-11-17.log

@@ -6,7 +6,7 @@
     "input_height":48,
     "input_width":800,
     "input_channels": 1,
-    "is_rnn" : "True"
+    "is_rnn" : "False"
   },
   "train_args": {
     "model_path": "${out_root}/tf/full_strs",

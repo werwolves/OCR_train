@@ -175,6 +175,6 @@ class TFOcrDenseNetLstmModelDef(TFOcrDenseNetModelDef):
 
 if __name__ == '__main__':
     base_model = TFOcrDenseNetModelDef(name='hou_test')
-    input = tf.keras.Input([96, 104, 3], batch_size=4, name='input')
+    input = tf.keras.Input([32, 320, 3], batch_size=4, name='input')
     x = base_model.dense_net_to_seq(input, is_test=False)
     print(x)

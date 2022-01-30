@@ -1,6 +1,6 @@
-# OCR_project 单行文字识别
+# ai-training AI训练平台
 
-#### 
+#### 20190821 hex
 1. 支持 tensorflow 训练 densenet ocr模型，在配置文件中指定 "model_def_type": "tf.ocr_dense_net"，示例请参考
 conf/conf.d/tf/fr/fr-num.json
 
@@ -13,14 +13,14 @@ python train.py --data_root=./data --config=tf/fr/fr-num
 #### train:
 
 ```shell
-python train.py --data_root=./data
+python train.py --data_root=./data --config=fluid/idcard/full_12740
 ```
 
 
 #### test:
 
 ```shell
-python train.py --data_root=./data
+python train.py --data_root=./data --config=fluid/idcard/full_12740 --mode=test 
 ```
 
 
@@ -30,7 +30,7 @@ ai-training使用方法简述：（以account为例）-->
 2、设置训练参数：conf/conf.d/tf/account/account.json；
 3、启动训练sh trrain-tf-account.sh ;
 4、生成的模型位于 output/tf/account下;
-5、测试参考readme的启动命令
+5测试参考readme的启动命令
 
 #################################### 补充
 对于训练参数设置account-num.json中需要这种
