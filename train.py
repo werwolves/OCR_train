@@ -6,7 +6,7 @@ from util import BaseApp
 # --config=tf/zch/zch-num --use_gpu=True --data_root=E:/PycharmProjects/work2/ai-training/data    训练注册号的识别
 # python -u train.py --config=tf/full_strs/full_strs --use_gpu=True --data_root=/usr/hsc_projects/test_rec/ai-training/data_no_blank >train-11-17.log
 '''
-搜索: '卍' , 就可以找到修改过的可以识别空格的地方
+搜索: '卍' , 就可以找到修改过的可以识别空格的地方v 
 
 '''
 
