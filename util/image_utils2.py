@@ -163,7 +163,13 @@ class ImageTools:
             pad_left = int(pad_w * pad_left_per)
             pad_right = pad_w - pad_left
 
-        im = np.pad(im, ((0, 0), (pad_left, pad_right)), mode='constant', constant_values=(255, 255))
+        # 原来的 20220601
+        # im = np.pad(im, ((0, 0), (pad_left, pad_right)), mode='constant', constant_values=(255, 255))
+        # 现在的 20220601
+        if len(im.shape) == 2:
+            im = np.pad(im, ((0, 0), (pad_left, pad_right)), mode='constant', constant_values=(255, 255))
+        else:
+            im = np.pad(im, ((0, 0), (pad_left, pad_right), (0, 0)), mode='constant', constant_values=(255, 255))
         return (im_w, im)
 
     @staticmethod
