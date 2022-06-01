@@ -27,8 +27,22 @@ models/tf/__init__.py            通过 def do_run(self) 中 self.train_model.fi
 
 models/tf/ocr/__init__.py        def init_model(self)  中 self.train_model.compile() 可以 优化器 和 学习率等参数
 
+# 2022-5-4
+util/data_feeder.py             def gen_train_batch(self) 中 use_multi_process = self.args.get('multi_process', "False") 是否使用多进程
+models/tf/ocr/feeder.py         def process_batch(self, batch, is_test)
 
-
+# 2022-6-1
+models/tf/ocr/ocr_dense_net.py    def attention_normal 中 增加了彩色图片的 注意力 功能
+                                  另外配置了灵活
+                                  "define_args": {
+                                                    "charset_file": "./conf/charset/full_strs/full_7655.txt",
+                                                    "input_height":48,
+                                                    "input_width":800,
+                                                    "input_channels": 3,
+                                                    "attention": "True",  《=========== her 配置了是否使用attention 的选项
+                                                    "is_rnn" : "False"
+                                                  },
+util/image_utils.py
 
 
 

@@ -219,11 +219,21 @@ class ImageTools:
 
     @staticmethod
     def open_from_file(image_path, to_gray):
-        im = np.array(Image.open(image_path))
-        if to_gray:
+        # =========> 原始的
+        # im = np.array(Image.open(image_path))
+        # <========= 修改后的
+        img = cv2.imread(image_path)
+        im= Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB)) # fix 20220601
+        im = np.asarray(im)
+        #########################
+
+        if to_gray: # json 文件 中 channel 设置为1
             im = ImageTools.convert_to_gray(im)
-        elif im.shape[-1] == 4:
+        elif im.shape[-1] == 4: # 考虑的是 RGBA
             im = np.array(Image.fromarray(im).convert('RGB'))
+
+
+
 
         return im
 

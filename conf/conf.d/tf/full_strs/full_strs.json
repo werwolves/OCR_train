@@ -5,14 +5,17 @@
     "charset_file": "./conf/charset/full_strs/full_7655.txt",
     "input_height":48,
     "input_width":800,
-    "input_channels": 1,
+    "input_channels": 3,
+    "attention": "False",
     "is_rnn" : "False"
   },
   "train_args": {
+    "attention": "True",
     "model_path": "${out_root}/tf/full_strs",
     "input_path": "${data_root}/full_strs",
 	"input_format": "folder-image",
     "max_text_len":100,
+    "multi_process": "False",
 	"rnd_proc_img" : "True",
     "input_len_div" : 8,
     "batch_size": 2,

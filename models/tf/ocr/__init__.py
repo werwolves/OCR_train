@@ -197,7 +197,7 @@ class TFCtcOcrModelDef(TFOcrModelDef):
 
 class TFCtcTrainModel(TFTrainModel):
     def __init__(self, model_def, **kwargs):
-        super().__init__(model_def, data_feeder_type=TFCtcDataFeeder, **kwargs)
+        super().__init__(model_def, data_feeder_type=TFCtcDataFeeder, **kwargs)   # TFCtcDataFeeder为数据的类
 
     def ctc_lambda_func(self, args):
         y_pred, labels, input_length, label_length = args

@@ -72,6 +72,10 @@ class TFOcrDenseNetModelDef(TFCtcOcrModelDef):
         a = tf.keras.layers.Permute((2, 1, 3), name="permute_first")(input)
 
         attention_ratio = 64 if self.input_height > 64 else self.input_height
+
+        if input.shape[-1] != 1: # 当输入的 图像为彩色图片  20220601
+            input = tf.keras.layers.Dense(attention_ratio, activation='softmax')(input)
+
         a = tf.keras.layers.Dense(attention_ratio, activation='softmax')(a)
         attention_probs = tf.keras.layers.Permute((2, 1, 3), name='attention_vec')(a)
         s = tf.keras.layers.multiply([input, attention_probs], name='attention_mul')
@@ -81,7 +85,12 @@ class TFOcrDenseNetModelDef(TFCtcOcrModelDef):
     def dense_net_to_seq(self, input, is_test=False):
         x = input  # shape=(4, 29, 228, 1)
 
-        if self.args.get('attention', True): #  if self.args.get('attention', False):
+        # ===========》 原始的
+        # if self.args.get('attention', "True"): #  if self.args.get('attention', False):
+
+        # 《========== 修改的
+        attention_attri = self.args.get('attention',None)
+        if attention_attri == 'True':
             x = self.attention_normal(x)
 
         _dropout_rate = 0.2

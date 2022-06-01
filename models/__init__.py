@@ -192,7 +192,7 @@ class ModelApp:
 
         self.name = model_args.get('model_name', 'model')
         define_args = model_args.get('define_args')
-        self.model_def = model_def_type(self.name, **define_args)   # 等于还要初始化 一下  -------------------
+        self.model_def = model_def_type(self.name, **define_args)   # self.model_def 就是模型的实例
 
     def train(self, **kwargs):
         args = self.model_args.get('train_args', {}).copy()

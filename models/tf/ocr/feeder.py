@@ -9,7 +9,7 @@ class TFCtcDataFeeder(DataFeeder):
     def __init__(self, model, **kwargs):
         super().__init__(model, **kwargs)
         self.charset = self.model.model_def.charset
-        self.rnd_proc_img = self.args.get('rnd_proc_img', True)
+        self.rnd_proc_img = self.args.get('rnd_proc_img', "True")
         self.max_text_len = self.args.get('max_text_len',50)
         self.input_len_div = self.args.get('input_len_div',8)
 
@@ -33,10 +33,13 @@ class TFCtcDataFeeder(DataFeeder):
                 #_, im = ImageTools.resize_and_pad_img(im, 20, 60)
                 #im = ImageRndUtils.updown_pad(im, (0, 0, 36, 0))
 
-            if self.rnd_proc_img:
+            if self.rnd_proc_img=="True":
                 # im = ImageRndUtils.rnd_pad(im, (40, 9,40, 8)) # 银行卡
                 # im = ImageRndUtils.rnd_pad(im, (16, 5, 0, 5)) # 公司默认代码
-                im = ImageRndUtils.rnd_pad(im, (16, 8, 16, 8))  # 左， 上， 右，下
+                # im = ImageRndUtils.rnd_pad(im, (16, 8, 16, 8))  # 左， 上， 右，下
+                # im = ImageRndUtils.rnd_pad(im, (4, 3, 4, 3))  # 左， 上， 右，下
+                im = ImageRndUtils.rnd_pad(im, (3, 2, 3, 2))  # 左， 上， 右，下
+
                 # (l,t,r,b)
             # im = ImageRndUtils.updown_pad(im, (2, 4, 3, 4))
             

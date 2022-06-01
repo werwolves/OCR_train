@@ -14,45 +14,25 @@ class ModelFactory:
         self.model_def_types = {}
         self.load_modules = set()
 
-    def register_fluid_model_type(self):
-        if 'fluid' in self.load_modules:
-            return
-
-        self.load_modules.add('fluid')
-        from models.baidu.ocr_dense_net import FluidOcrDenseNetModelDef, FluidOcrDenseNetLstmModelDef
-        from models.baidu.ocr_dpn import FluidOcrDpnModelDef
-        from models.baidu.ocr_oline import FluidOcrOLineModelDef
-        from models.baidu.table_cell_classify import TableCellClassifyModel
-        from models.baidu.yolo import FluidYolo3ModelDef
-
-        self.model_def_types['fluid.ocr_dense_net'] = FluidOcrDenseNetModelDef
-        self.model_def_types['fluid.ocr_dense_net_lstm'] = FluidOcrDenseNetLstmModelDef
-        self.model_def_types['fluid.ocr_dpn'] = FluidOcrDpnModelDef
-        self.model_def_types['fluid.ocr_oline'] = FluidOcrOLineModelDef
-        self.model_def_types['fluid.yolo3'] = FluidYolo3ModelDef
-        self.model_def_types['fluid.table_cell_classify'] = TableCellClassifyModel
-
     def register_tf_model_type(self):
         if 'tf' in self.load_modules:
             return
 
         self.load_modules.add('tf')
-        # from models.tf.nlp.text_classify_attention import TextClassifyAttention
         from models.tf.ocr.ocr_dense_net import TFOcrDenseNetModelDef
         from models.tf.ocr.ocr_dense_net import TFOcrDenseNetLstmModelDef
-        # self.model_def_types['tf.text_classify_attention'] = TextClassifyAttention
         self.model_def_types['tf.ocr_dense_net'] = TFOcrDenseNetModelDef
         self.model_def_types['tf.ocr_dense_net_lstm'] = TFOcrDenseNetLstmModelDef
 
     def get_model_type(self, name):
-        full_type = self.model_def_types.get(name, None)
+        full_type = self.model_def_types.get(name, None)  # 与 配置环境 中的json   "model_def_type": "tf.ocr_dense_net"  ===> name
         if not full_type is None:
             return full_type
 
-        if name.startswith('fluid'):
-            self.register_fluid_model_type()
-        elif name.startswith('tf'):
+        if name.startswith('tf'):
             self.register_tf_model_type()   # 首先注册类 网络
+        else:
+            print("-*=*-"*10,"unknown type model register","-*=*-"*10)
 
         return self.model_def_types.get(name)  # 返回的是注册类（TFOcrDenseNetModelDef) 的实例
 

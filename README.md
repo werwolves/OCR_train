@@ -42,3 +42,7 @@ train_args中的模型保存地址（model_path），
 是否随机加白边（rnd_proc_img）
 以及其他的模型训练参数：batch_size,epochs,steps_per_epoch
 
+
+子 ---> 父
+TFOcrDenseNetModelDef  ---> TFCtcOcrModelDef   ---> TFOcrModelDef  ---> TFModelDef    ---> BaseModelDef
+                                               ---> OcrModelDef

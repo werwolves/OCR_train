@@ -6,8 +6,7 @@ from util import BaseApp
 # --config=tf/zch/zch-num --use_gpu=True --data_root=E:/PycharmProjects/work2/ai-training/data    训练注册号的识别
 # python -u train.py --config=tf/full_strs/full_strs --use_gpu=True --data_root=/usr/hsc_projects/test_rec/ai-training/data_no_blank >train-11-17.log
 '''
-搜索: '卍' , 就可以找到修改过的可以识别空格的地方v 
-
+搜索: '卍' , 就可以找到修改过的可以识别空格的地方
 '''
 
 class TrainApp(BaseApp):
@@ -25,13 +24,13 @@ class TrainApp(BaseApp):
         self.define_bool_arg('use_py_reader', None, 'use py_reader for fulid')
         self.define_bool_arg('attention', True, 'use gpu')
         self.define_str_arg('pre_weight', 'E:/PycharmProjects/work2/ai-training/pretraining_model/caibao.h5', 'pre train weight')
-        self.factory = ModelFactory()
+        self.factory = ModelFactory()   # 与模型注册相关的
 
     def on_load(self):
         super().on_load()
 
     def do_run(self):   # run() 的实质性内容
-        model_app = self.factory.create_model_app(self.args)    # 注册 2个识别模型
+        model_app = self.factory.create_model_app(self.args)    # 注册 2个识别模型   === models/tf/ocr/ocr_dense_net.py  class TFOcrDenseNetModelDef
         model_app.run(self.args.mode)    # 引入网络模型 step 0
 
 

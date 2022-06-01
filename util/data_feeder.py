@@ -44,8 +44,9 @@ class DataFeeder:
                                     channels=self.channels,
                                     rand_fetch=True,
                                     scan_period=15)
-        if not self.args.get('multi_process', False):
-            print('multi_process','multi_process')
+        use_multi_process = self.args.get('multi_process', "False")
+        if use_multi_process == "False":  # 不使用多进程
+            print('not multi_process','not multi_process')
             while True:
                 batch = reader.fetch_batch()
                 if batch is None:
@@ -53,13 +54,30 @@ class DataFeeder:
                     continue
                 yield self.process_batch(batch, False)
 
-        else:
-            print('not multi_process', 'not multi_process')
+        else: # 使用多进程
+            print('multi_process', 'multi_process')
             if self.enqueuer is None:
                 self.enqueuer = GeneratorEnqueuer(
                     self.infinite_reader(reader), use_multiprocessing=True)
                 # self.enqueuer.start(max_queue_size=10 * self.batch_size, workers=2) # raw
                 self.enqueuer.start(max_queue_size=1 * self.batch_size, workers=1)
+
+        # if not self.args.get('multi_process', False):
+        #     print('not multi_process','not multi_process')
+        #     while True:
+        #         batch = reader.fetch_batch()
+        #         if batch is None:
+        #             time.sleep(1)
+        #             continue
+        #         yield self.process_batch(batch, False)
+        #
+        # else:
+        #     print('not multi_process', 'not multi_process')
+        #     if self.enqueuer is None:
+        #         self.enqueuer = GeneratorEnqueuer(
+        #             self.infinite_reader(reader), use_multiprocessing=True)
+        #         # self.enqueuer.start(max_queue_size=10 * self.batch_size, workers=2) # raw
+        #         self.enqueuer.start(max_queue_size=1 * self.batch_size, workers=1)
 
             generator_out = None
             while True:
