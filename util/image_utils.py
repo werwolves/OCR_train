@@ -218,14 +218,20 @@ class ImageTools:
         return (im_w, im)
 
     @staticmethod
-    def open_from_file(image_path, to_gray):
+    def open_from_file(image_path, to_gray, enhancer, is_enhance):
         # =========> 原始的
         # im = np.array(Image.open(image_path))
         # <========= 修改后的
         img = cv2.imread(image_path)
+        ################################ 新加的 图像增强  === 在这里统一使用彩色图像处理，在下面的几行代码中开始通过条件判断 来转换为灰度图
+        if is_enhance:
+            img = enhancer.do(img, labels_list=None)
+
+        # cv2.imshow('',img)
+        # cv2.waitKey()
+        ################################
         im= Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB)) # fix 20220601
         im = np.asarray(im)
-        #########################
 
         if to_gray: # json 文件 中 channel 设置为1
             im = ImageTools.convert_to_gray(im)
@@ -254,92 +260,7 @@ class ImageTools:
         im = im.rotate(angle,resample=3)
         return np.array(im)
 
-class YoloBoxUtils:
-    @staticmethod
-    def box_xywh_to_xyxy(box):
-        shape = box.shape
-        assert shape[-1] == 4, "Box shape[-1] should be 4."
 
-        box = box.reshape((-1, 4))
-        box[:, 0], box[:, 2] = box[:, 0] - box[:, 2] / 2, box[:, 0] + box[:, 2] / 2
-        box[:, 1], box[:, 3] = box[:, 1] - box[:, 3] / 2, box[:, 1] + box[:, 3] / 2
-        box = box.reshape(shape)
-        return box
-
-    @staticmethod
-    def box_iou_xywh(box1, box2):
-        assert box1.shape[-1] == 4, "Box1 shape[-1] should be 4."
-        assert box2.shape[-1] == 4, "Box2 shape[-1] should be 4."
-
-        b1_x1, b1_x2 = box1[:, 0] - box1[:, 2] / 2, box1[:, 0] + box1[:, 2] / 2
-        b1_y1, b1_y2 = box1[:, 1] - box1[:, 3] / 2, box1[:, 1] + box1[:, 3] / 2
-        b2_x1, b2_x2 = box2[:, 0] - box2[:, 2] / 2, box2[:, 0] + box2[:, 2] / 2
-        b2_y1, b2_y2 = box2[:, 1] - box2[:, 3] / 2, box2[:, 1] + box2[:, 3] / 2
-
-        inter_x1 = np.maximum(b1_x1, b2_x1)
-        inter_x2 = np.minimum(b1_x2, b2_x2)
-        inter_y1 = np.maximum(b1_y1, b2_y1)
-        inter_y2 = np.minimum(b1_y2, b2_y2)
-        inter_w = inter_x2 - inter_x1 + 1
-        inter_h = inter_y2 - inter_y1 + 1
-        inter_w[inter_w < 0] = 0
-        inter_h[inter_h < 0] = 0
-
-        inter_area = inter_w * inter_h
-        b1_area = (b1_x2 - b1_x1 + 1) * (b1_y2 - b1_y1 + 1)
-        b2_area = (b2_x2 - b2_x1 + 1) * (b2_y2 - b2_y1 + 1)
-
-        return inter_area / (b1_area + b2_area - inter_area)
-
-    @staticmethod
-    def box_iou_xyxy(box1, box2):
-        assert box1.shape[-1] == 4, "Box1 shape[-1] should be 4."
-        assert box2.shape[-1] == 4, "Box2 shape[-1] should be 4."
-
-        b1_x1, b1_y1, b1_x2, b1_y2 = box1[:, 0], box1[:, 1], box1[:, 2], box1[:, 3]
-        b2_x1, b2_y1, b2_x2, b2_y2 = box2[:, 0], box2[:, 1], box2[:, 2], box2[:, 3]
-
-        inter_x1 = np.maximum(b1_x1, b2_x1)
-        inter_x2 = np.minimum(b1_x2, b2_x2)
-        inter_y1 = np.maximum(b1_y1, b2_y1)
-        inter_y2 = np.minimum(b1_y2, b2_y2)
-        inter_w = inter_x2 - inter_x1
-        inter_h = inter_y2 - inter_y1
-        inter_w[inter_w < 0] = 0
-        inter_h[inter_h < 0] = 0
-
-        inter_area = inter_w * inter_h
-        b1_area = (b1_x2 - b1_x1) * (b1_y2 - b1_y1)
-        b2_area = (b2_x2 - b2_x1) * (b2_y2 - b2_y1)
-
-        return inter_area / (b1_area + b2_area - inter_area)
-
-    @staticmethod
-    def box_crop(boxes, labels, scores, crop, img_shape):
-        x, y, w, h = map(float, crop)
-        im_w, im_h = map(float, img_shape)
-
-        boxes = boxes.copy()
-        boxes[:, 0], boxes[:, 2] = (boxes[:, 0] - boxes[:, 2] / 2) * im_w, (boxes[:, 0] + boxes[:, 2] / 2) * im_w
-        boxes[:, 1], boxes[:, 3] = (boxes[:, 1] - boxes[:, 3] / 2) * im_h, (boxes[:, 1] + boxes[:, 3] / 2) * im_h
-
-        crop_box = np.array([x, y, x + w, y + h])
-        centers = (boxes[:, :2] + boxes[:, 2:]) / 2.0
-        mask = np.logical_and(crop_box[:2] <= centers, centers <= crop_box[2:]).all(axis=1)
-
-        boxes[:, :2] = np.maximum(boxes[:, :2], crop_box[:2])
-        boxes[:, 2:] = np.minimum(boxes[:, 2:], crop_box[2:])
-        boxes[:, :2] -= crop_box[:2]
-        boxes[:, 2:] -= crop_box[:2]
-
-        mask = np.logical_and(mask, (boxes[:, :2] < boxes[:, 2:]).all(axis=1))
-        boxes = boxes * np.expand_dims(mask.astype('float32'), axis=1)
-        labels = labels * mask.astype('float32')
-        scores = scores * mask.astype('float32')
-        boxes[:, 0], boxes[:, 2] = (boxes[:, 0] + boxes[:, 2]) / 2 / w, (boxes[:, 2] - boxes[:, 0]) / w
-        boxes[:, 1], boxes[:, 3] = (boxes[:, 1] + boxes[:, 3]) / 2 / h, (boxes[:, 3] - boxes[:, 1]) / h
-
-        return boxes, labels, scores, mask.sum()
 
 
 class ImageRndUtils:

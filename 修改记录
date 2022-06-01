@@ -42,8 +42,10 @@ models/tf/ocr/ocr_dense_net.py    def attention_normal 中 增加了彩色图片
                                                     "attention": "True",  《=========== her 配置了是否使用attention 的选项
                                                     "is_rnn" : "False"
                                                   },
-util/image_utils.py
 
+增加了数据增强功能
+util/image_utils.py              def open_from_file
+util/data_reader.py              def ImageFolderDataLoader 配合根目录下的配置文件 .env
 
 
 

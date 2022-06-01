@@ -14,7 +14,9 @@ from util import Logger
 from util.image_utils import ImageTools
 from util.io_utils import FileUtils
 from util.label_utils import LabelUtils
-
+from data_enhance_tools import twist
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 class BatchDataReader:
     """
@@ -427,6 +429,10 @@ class ImageFolderDataLoader(FolderDataRowLoader):
 
     def __init__(self, folder, **kwargs):
         self.to_gray = kwargs.get('channels', 1) == 1
+        self.bj_img_path = os.getenv('bj_img_path')
+        self.enhance_ratio = float(os.getenv('enhance_ratio'))
+        self.img_enhancer = twist.Twist(to_gray=False, noise_config_path='./data_enhance_tools/temp',
+                                   bj_img_path=self.bj_img_path)
         super().__init__(folder, **kwargs)
 
     def process_file(self, file):
@@ -435,7 +441,9 @@ class ImageFolderDataLoader(FolderDataRowLoader):
             return
 
         label = LabelUtils.get_label_from_txt_file(file)
-        im = ImageTools.open_from_file(img_file, self.to_gray)
+
+        random_data = random.random()
+        im = ImageTools.open_from_file(img_file, self.to_gray,self.img_enhancer, is_enhance=random_data<self.enhance_ratio)
 
         item = {'im': im, 'label': label, 'file_name': os.path.basename(img_file)}
         return item
