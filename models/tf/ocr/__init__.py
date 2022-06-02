@@ -226,7 +226,7 @@ class TFCtcTrainModel(TFTrainModel):
             return lr
 
         optimizer = tf.keras.optimizers.Adam(lr=0.001)
-        optimizer = tf.keras.optimizers.SGD()
+        #optimizer = tf.keras.optimizers.SGD()
         lr_metric = get_lr_metric(optimizer)
         self.train_model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=optimizer, metrics=['accuracy',lr_metric])
         ########################
