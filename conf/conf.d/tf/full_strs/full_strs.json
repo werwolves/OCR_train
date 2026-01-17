@@ -3,7 +3,7 @@
   "model_def_type": "tf.ocr_dense_net",
   "define_args": {
     "charset_file": "./conf/charset/full_strs/full_7655.txt",
-    "input_height":48,
+    "input_height":32,
     "input_width":800,
     "input_channels": 3,
     "attention": "True",

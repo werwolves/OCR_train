@@ -232,6 +232,7 @@ class ImageTools:
         ################################
         im= Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB)) # fix 20220601
         im = np.asarray(im)
+        print(f'im-shape:{im.shape}')
 
         if to_gray: # json 文件 中 channel 设置为1
             im = ImageTools.convert_to_gray(im)

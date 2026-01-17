@@ -69,15 +69,15 @@ class TFOcrDenseNetModelDef(TFCtcOcrModelDef):
         return x, nb_filter
 
     def attention_normal(self, input):
-        a = tf.keras.layers.Permute((2, 1, 3), name="permute_first")(input)
+        a = tf.keras.layers.Permute((2, 1, 3), name="permute_first")(input)   # shape=(?, 32, ?, 3) ====> (?, ?, 32, 3)
 
-        attention_ratio = 64 if self.input_height > 64 else self.input_height
+        attention_ratio = 64 if self.input_height > 64 else self.input_height  # attention_ratio = 32
 
         if input.shape[-1] != 1: # 当输入的 图像为彩色图片  20220601
-            input = tf.keras.layers.Dense(attention_ratio, activation='softmax')(input)
+            input = tf.keras.layers.Dense(attention_ratio, activation='softmax')(input) #　shape=(?, 32, ?, 32)
 
-        a = tf.keras.layers.Dense(attention_ratio, activation='softmax')(a)
-        attention_probs = tf.keras.layers.Permute((2, 1, 3), name='attention_vec')(a)
+        a = tf.keras.layers.Dense(attention_ratio, activation='softmax')(a)             # shape=(?, ?, 32, 32)
+        attention_probs = tf.keras.layers.Permute((2, 1, 3), name='attention_vec')(a)   # shape=(?, 32, ? , 32)
         s = tf.keras.layers.multiply([input, attention_probs], name='attention_mul')
         # ATTENTION PART FINISHES HERE
         return s

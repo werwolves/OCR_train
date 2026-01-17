@@ -1,0 +1,1 @@
+1. 运行 step1-perlinGen.py 在temp中生成 perlin 噪声文件
